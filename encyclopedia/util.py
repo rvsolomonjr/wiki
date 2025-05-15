@@ -35,3 +35,12 @@ def get_entry(title):
         return f.read().decode("utf-8")
     except FileNotFoundError:
         return None
+
+
+def delete_entry(title):
+    """
+    Deletes an entry by its title.
+    """
+    filename = f"entries/{title}.md"
+    if default_storage.exists(filename):  # Use Django's storage API
+        default_storage.delete(filename)  # Use Django's storage API

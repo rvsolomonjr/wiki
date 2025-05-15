@@ -3,35 +3,83 @@
 <!DOCTYPE html>
 
 <html lang="en">
-    <head>
-        <title>{% block title %}{% endblock %}</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
-    </head>
-    <body>
-        <div class="row">
-            <div class="sidebar col-lg-2 col-md-3">
-                <h2>Wiki</h2>
-                <form>
-                    <input class="search" type="text" name="q" placeholder="Search Encyclopedia">
-                </form>
-                <div>
-                    <a href="{% url 'index' %}">Home</a>
-                </div>
-                <div>
-                    Create New Page
-                </div>
-                <div>
-                    Random Page
-                </div>
-                {% block nav %}
-                {% endblock %}
-            </div>
-            <div class="main col-lg-10 col-md-9">
-                {% block body %}
-                {% endblock %}
-            </div>
+  <head>
+    <title>
+      {% block title %}
+      {% endblock %}
+    </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="row">
+      <div class="sidebar col-lg-2 col-md-3">
+        <h2>Wiki</h2>
+        <form>
+          {% csrf_token %}
+          <input class="search" type="text" name="q" placeholder="Search Encyclopedia" />
+        </form>
+        <div class="home_button">
+          <a href="{% url 'index' %}">Home</a>
         </div>
+        <div>
+          <a href="{% url 'index' %}wiki/create/create">Create New Page</a>
+        </div>
+        <div>
+          <a href="{% url 'index' %}random">Random Page</a>
+        </div>
+        <div class="theme-switch-wrapper">
+          Toggle Dark Mode
+          <label class="label" for="checkbox">
+            <div class="toggle">
+              <input type="checkbox" name="check" class="toggle-state" id="checkbox" />
+              <div class="indicator"></div>
+            </div>
+          </label>          
+        </div>
+        {% block nav %}
 
-    </body>
+        {% endblock %}
+      </div>
+      <div class="main col-lg-10 col-md-9">
+        {% block body %}
+
+        {% endblock %}
+        <div class="home_button">
+          <a href="/">Home</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // JavaScript for Dark/Light Mode Toggle
+      const checkbox = document.getElementById('checkbox')
+      
+      // Function to set the theme
+      function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme)
+        localStorage.setItem('theme', theme) // Store the theme
+      }
+      
+      // Event listener for the checkbox
+      checkbox.addEventListener('change', (e) => {
+        if (e.target.checked) {
+          setTheme('dark')
+        } else {
+          setTheme('light')
+        }
+      })
+      
+      // Initially set the theme based on localStorage
+      const storedTheme = localStorage.getItem('theme')
+      if (storedTheme) {
+        setTheme(storedTheme)
+        if (storedTheme === 'dark') {
+          checkbox.checked = true
+        }
+      } else {
+        setTheme('light') // Default to light
+      }
+    </script>
+  </body>
 </html>
