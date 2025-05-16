@@ -5,10 +5,10 @@
 {% endblock %}
 
 {% block body %}
-results for {{ title | escape }}
+<h1>Search results for "{{ title | escape }}"</h1>
 <ul>
 {% for entry in results %}
- <li><a href="{% url 'show' entry=entry %}">{{ entry }}</a></li>
+ <li><a href="/wiki/{{ entry }}">{{ entry }}</a></li>
 {% endfor %}
 </ul>
 {% endblock %}

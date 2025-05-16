@@ -5,7 +5,14 @@
 {% endblock %}
 
 {% block body %}
-{{ entry | safe }}
-<br>
-<a href="/edit/{{ title }}">Edit this page</a>
+    <div class="article-content">
+        {{ entry|safe }}
+    </div>
+    <div class="mt-4">
+        <a href="{% url 'edit' title %}" class="btn btn-secondary">Edit</a>
+        <form method="post" action="{% url 'delete' title %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this entry?')">Delete</button>
+        </form>
+    </div>
 {% endblock %}

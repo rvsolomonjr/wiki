@@ -1,0 +1,33 @@
+# Next.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Next.js is an open-source [React](/wiki/React (software)) framework designed for building web applications. It provides structure, extra features, and optimizations, simplifying the development of fast, interactive, and SEO-friendly applications. Next.js handles tooling and configuration, allowing developers to concentrate on building features.

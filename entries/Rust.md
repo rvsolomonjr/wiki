@@ -1,0 +1,2 @@
+# Rust 
+Rust is a systems programming language that prioritizes safety, speed, and concurrency. It aims to provide the developer with the low-level control of C and C++ while ensuring memory safety and preventing data races through its borrow checker.

@@ -1,0 +1,3 @@
+# JavaScript
+
+JavaScript is a versatile scripting and programming language primarily used for making web pages interactive and dynamic. It allows developers to add features like drop-down menus, animations, and form validation, enhancing the user experience. While primarily known for client-side web development, JavaScript also plays a crucial role in server-side applications, mobile app development, and even game development.

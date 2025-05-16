@@ -1,15 +1,38 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-    Encyclopedia - Creating a New Article
+    Create New Encyclopedia Entry
 {% endblock %}
 
 {% block body %}
-Creating a New Article
-<form method="post" action="save">
-    {% csrf_token %}
-    {{form}}
-    <button type="submit">Save</button>
-</form>
-
+    <h1>Create New Encyclopedia Entry</h1>
+    
+    <form action="{% url 'create_save' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.title.label_tag }}
+            {{ form.title }}
+            {% if form.title.errors %}
+                <div class="alert alert-danger">
+                    {{ form.title.errors }}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            {{ form.content.label_tag }}
+            {{ form.content }}
+            {% if form.content.errors %}
+                <div class="alert alert-danger">
+                    {{ form.content.errors }}
+                </div>
+            {% endif %}
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+    
+    <div class="mt-4">
+        <a href="{% url 'index' %}">Back to Home</a>
+    </div>
 {% endblock %}

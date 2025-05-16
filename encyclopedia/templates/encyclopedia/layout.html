@@ -6,6 +6,7 @@
   <head>
     <title>
       {% block title %}
+
       {% endblock %}
     </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
@@ -15,18 +16,21 @@
     <div class="row">
       <div class="sidebar col-lg-2 col-md-3">
         <h2>Wiki</h2>
-        <form>
-          {% csrf_token %}
-          <input class="search" type="text" name="q" placeholder="Search Encyclopedia" />
+        <form method="POST" action="{% url 'index' %}" id="searchForm">
+          <div class="search_container">
+            {% csrf_token %}
+            <input class="search" type="text" name="q" placeholder="Search Encyclopedia" id="searchInput" />
+            <button class="btn btn-primary" type="submit" name="submit" title="Search Encyclopedia" id="searchSubmit">Search</button>
+          </div>
         </form>
         <div class="home_button">
           <a href="{% url 'index' %}">Home</a>
         </div>
         <div>
-          <a href="{% url 'index' %}wiki/create/create">Create New Page</a>
+          <a href="{% url 'create' %}">Create New Page</a>
         </div>
         <div>
-          <a href="{% url 'index' %}random">Random Page</a>
+          <a href="{% url 'random' %}">Random Page</a>
         </div>
         <div class="theme-switch-wrapper">
           Toggle Dark Mode
@@ -35,7 +39,7 @@
               <input type="checkbox" name="check" class="toggle-state" id="checkbox" />
               <div class="indicator"></div>
             </div>
-          </label>          
+          </label>
         </div>
         {% block nav %}
 
@@ -46,22 +50,19 @@
 
         {% endblock %}
         <div class="home_button">
-          <a href="/">Home</a>
+          <a href="/" class="btn btn-primary">Home</a>
         </div>
       </div>
     </div>
 
-    <script>
-      // JavaScript for Dark/Light Mode Toggle
+    <script> // For switching between light and dark mode
       const checkbox = document.getElementById('checkbox')
       
-      // Function to set the theme
       function setTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme)
-        localStorage.setItem('theme', theme) // Store the theme
+        localStorage.setItem('theme', theme)
       }
       
-      // Event listener for the checkbox
       checkbox.addEventListener('change', (e) => {
         if (e.target.checked) {
           setTheme('dark')
@@ -70,7 +71,6 @@
         }
       })
       
-      // Initially set the theme based on localStorage
       const storedTheme = localStorage.getItem('theme')
       if (storedTheme) {
         setTheme(storedTheme)
@@ -78,8 +78,19 @@
           checkbox.checked = true
         }
       } else {
-        setTheme('light') // Default to light
+        setTheme('light')
       }
+    </script>
+    <script> // To use a search button 
+      const searchForm = document.getElementById('searchForm')
+      const searchInput = document.getElementById('searchInput')
+      
+      searchForm.addEventListener('submit', function (event) {
+        if (searchInput.value.trim() === '') {
+          event.preventDefault()
+          alert('Please enter a search query.') 
+        }
+      })
     </script>
   </body>
 </html>
